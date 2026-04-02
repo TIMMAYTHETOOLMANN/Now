@@ -48,4 +48,10 @@ class LMStudioConfig:
     @property
     def server_origin(self) -> str:
         """Return the scheme + host + port without the /v1 path."""
-        return self.base_url.replace("/v1", "").rstrip("/")
+        from urllib.parse import urlparse
+
+        parsed = urlparse(self.base_url)
+        origin = f"{parsed.scheme}://{parsed.hostname}"
+        if parsed.port:
+            origin += f":{parsed.port}"
+        return origin
