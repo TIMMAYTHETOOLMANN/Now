@@ -1,0 +1,23 @@
+{
+    "mcpServers": {},
+    "ai": {
+        "default": "lm-studio-custom",
+        "providers": {
+            "lm-studio-custom": {
+                "name": "LM Studio (Custom Remote Server)",
+                "apiBase": "http://10.0.0.182:1270/v1",
+                "apiKey": "lm-studio",
+                "models": [
+                    {
+                        "name": "default",
+                        "maxTokens": 2048
+                    }
+                ],
+                "requestOptions": {
+                    "timeout": 120000,
+                    "headers": {}
+                }
+            }
+        }
+    }
+}

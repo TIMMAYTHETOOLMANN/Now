@@ -1,0 +1,8 @@
+{
+    "openai.apiBase": "http://10.0.0.182:1270/v1",
+    "openai.apiKey": "lm-studio",
+    "openai.model": "default",
+    "openai.maxTokens": 2048,
+    "openai.temperature": 0.7,
+    "openai.requestTimeout": 120000
+}
