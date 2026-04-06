@@ -4,15 +4,15 @@ import sys
 import requests
 
 
-def get_temp_number(api_key):
+def get_temp_number(api_key, country_code="86"):
     """Request a temporary phone number from the temp-number API."""
     url = "https://api.temp-number.com/v1/number"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
     }
-    payload = {"country_code": "86"}
-    response = requests.post(url, json=payload, headers=headers)
+    payload = {"country_code": country_code}
+    response = requests.post(url, json=payload, headers=headers, timeout=30)
     if response.status_code == 200:
         data = response.json()
         return data["number"]
@@ -28,10 +28,14 @@ def receive_verification_code(number, api_key):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}",
     }
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=30)
     if response.status_code == 200:
         data = response.json()
-        return data["messages"][0]["text"]
+        messages = data.get("messages", [])
+        if not messages:
+            print("No messages received yet.")
+            return None
+        return messages[0]["text"]
     else:
         print(f"Failed to receive verification code: {response.status_code}")
         return None
